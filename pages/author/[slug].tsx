@@ -18,8 +18,7 @@ interface Props{
 function Post({author}:Props) {
     const router = useRouter()
     const {slug} = router.query
-    console.log(slug)
-    console.log(author)
+  
 
 
   return( 

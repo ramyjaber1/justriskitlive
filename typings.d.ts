@@ -41,7 +41,7 @@ export interface Comment {
 
 export interface Author {
     name:string,
-    bio:string,
+    bio:any,
     image:{
         asset:{
             url:string
