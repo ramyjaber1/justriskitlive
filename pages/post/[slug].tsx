@@ -94,7 +94,7 @@ function Post({post,suggestedPosts}:Props) {
       {/*  */}
       
       {/* <div className="aboslute left-5 top-2/3"> */}
-          <Ad slotId={"3201377243"} width="300" height="1000" />
+          {/* <Ad slotId={"3201377243"} width="300" height="1000" /> */}
           {/* </div> */}
       
       {/* Suggested Posts */}
@@ -128,16 +128,16 @@ function Post({post,suggestedPosts}:Props) {
           <input {...register("_id")} type={"hidden"} name="_id" value={post._id} />
           <label className='block mb-5'>
               <span className='text-gray-700'>Name</span>
-          <input {...register("name",{required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='John Applessed' type="text" />
+          <input {...register("name",{required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='John Doe' type="text" />
           </label>
           <label className='block mb-5'>
               <span className='text-gray-700'>Email</span>
-          <input {...register("email",{required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='John Applessed' type="email" />
+          <input {...register("email",{required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='example@test.com' type="email" />
           </label>
          
           <label className='block mb-5'>
               <span className='text-gray-700'>Comment</span>
-          <textarea {...register("comment",{required:true})} className='shadow border rounded py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='John Applessed' rows={8} />
+          <textarea {...register("comment",{required:true})} className='shadow border rounded py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Nice Post!' rows={8} />
           </label>
           <div className='flex flex-col p-5'>
               {errors.name && <span className='text-red-500'>- The Name Field is required</span>}

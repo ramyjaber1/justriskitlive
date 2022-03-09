@@ -1,12 +1,13 @@
 import { motion, useCycle } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useDimensions } from '../use-dimension';
 import { MenuToggle } from './MenuToggle';
 import Modal from './Modal';
 import { Navigation } from './Navigation';
-
+import { FiLogIn } from 'react-icons/fi'
+import { UserContext } from '../components/context/userContext'
 const sidebar = {
     open: (height = 1000) => ({
       clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
@@ -29,7 +30,9 @@ const sidebar = {
 
 function Header() {
     const [showModal,setShowModal] = useState(false)
-  
+    const {currentAccount,connectWallet,currentUser} = useContext(UserContext)
+    console.log(currentAccount)
+    console.log(currentUser)
   return <div className="border-b border-black ">
   <header className='flex items-center  justify-between p-5 max-w-7xl mx-auto'>
       <div className='flex items-center space-x-5'>
@@ -48,9 +51,11 @@ function Header() {
       <div className='hidden md:flex items-center space-x-5 text-black'>
         {/* <h3>Sign In</h3> */}
         <Link href="/premium" >Premium</Link>
-        <Link href="/comingsoon">
-        <h3 className='border px-4 py-1 rounded-full cursor-pointer hover:bg-black hover:border-white hover:text-white border-black'>Get Started</h3>
-        </Link>
+        {/* <div className="flex items-center cursor-pointer space-x-2" onClick={() => connectWallet()}>
+            <FiLogIn />
+            <span className="">Log in</span>
+          </div> */}
+        
       </div>
       {/* Mobile version */}
       <div className='md:hidden'>

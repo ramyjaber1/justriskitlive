@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
 import { useEffect } from 'react'
 import Head from 'next/head'
-
+import { UserProvider } from '../components/context/userContext'
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   useEffect(() => {
@@ -49,8 +49,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           `,
         }}
       />
+    <UserProvider>
     <Header />
   <Component {...pageProps} />
+  </UserProvider>
   <Footer />
   </>
   )
