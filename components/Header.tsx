@@ -51,10 +51,10 @@ function Header() {
       <div className='hidden md:flex items-center space-x-5 text-black'>
         {/* <h3>Sign In</h3> */}
         <Link href="/premium" >Premium</Link>
-        {/* <div className="flex items-center cursor-pointer space-x-2" onClick={() => connectWallet()}>
+        <div className="flex items-center cursor-pointer space-x-2" onClick={() => connectWallet()}>
             <FiLogIn />
             <span className="">Log in</span>
-          </div> */}
+          </div>
         
       </div>
       {/* Mobile version */}

@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
       />
-      {/* <Script
+      <Script
    id="Adsense-id"
    data-adtest="on"
    strategy="afterInteractive"
@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
    data-ad-client="ca-pub-6386024894825471"
    async={true}
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-/> */}
+/>
       <Script
         id="gtag-init"
         strategy="afterInteractive"

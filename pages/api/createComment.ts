@@ -1,19 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import  sanityClient from '@sanity/client'
-
-type Data = {
-  name: string
-}
-
-const config = {
-    dataset:process.env.NEXT_PUBLIC_SANITY_DATASET,
-    projectId:process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    useCdn:process.env.NODE_ENV === 'production',
-    token:process.env.SANITY_API_TOKEN,
-}
-
-const  client = sanityClient(config)
+import {client} from '../../lib/sanity'
 
 export default async function createComment(
   req: NextApiRequest,
@@ -21,7 +8,7 @@ export default async function createComment(
 ) {
     const {_id,name,email,comment}  = JSON.parse(req.body);
     try{
-        await client.create({
+      const test=  await client.create({
             _type:'comment',
             post:{
                 _type:'reference',
@@ -31,6 +18,7 @@ export default async function createComment(
             email,
             comment
         });
+        console.log("test")
     }catch(err){
         return res.status(500).json({message:`Couldn't submit your comment`,err})
     }

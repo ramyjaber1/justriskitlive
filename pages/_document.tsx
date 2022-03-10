@@ -16,8 +16,7 @@ class MyDocument extends Document {
             });
             `,
             }} /> */}
-           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6386024894825471"
-     crossOrigin="anonymous"></script>
+          
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=''/>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet"/>
