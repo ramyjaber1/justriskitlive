@@ -1,7 +1,8 @@
 RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule  http://www.ishtari.gh.com/5050 [NC]
+    RewriteRule  https://www.justriskit.com/wp-admin [NC]
+    RewriteRule  https://www.justriskit.com/wp/* [NC]
     RewriteCond %{REQUEST_FILENAME} !-l
     RewriteRule . /index.html [L]
      
