@@ -10,7 +10,7 @@ import category from './category'
 import post from './post'
 import author from './author'
 import comment from './comment'
-import {userSchema} from './user'
+import user from './user'
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -27,6 +27,6 @@ export default createSchema({
     // { type: 'typename' } in other document schemas
     blockContent,
     comment,
-    userSchema
+    user
   ]),
 })

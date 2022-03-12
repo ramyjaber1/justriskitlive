@@ -41,7 +41,13 @@ export default {
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      to: [{type: 'reference', to: {type: 'user'}}],
+    },
+    {
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      to: [{type: 'reference', to: {type: 'category'}}],
     },
     {
       name: 'publishedAt',

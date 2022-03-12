@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 import { useRouter } from 'next/router'
 import * as gtag from '../lib/gtag'
 import { useEffect } from 'react'
-import Head from 'next/head'
+import { Provider } from 'next-auth/client'
 import { UserProvider } from '../components/context/userContext'
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -49,11 +49,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           `,
         }}
       />
+    <Provider session={pageProps.session}>
     <UserProvider>
     <Header />
   <Component {...pageProps} />
   </UserProvider>
   <Footer />
+  </Provider>
+  
   </>
   )
 }

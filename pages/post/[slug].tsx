@@ -1,13 +1,11 @@
 import { GetStaticProps } from 'next';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {sanityClient, urlFor} from '../../sanity'
 import { Post } from '../../typings';
 import {useForm,SubmitHandler} from 'react-hook-form'
-
+import {BiUpvote,BiDownvote} from 'react-icons/Bi'
 interface IFormInput {
     _id:string;
-    name:string;
-    email:string;
     comment:string;
 }
 
@@ -15,6 +13,7 @@ import PortableText from 'react-portable-text';
 import Link from 'next/link';
 import Head from 'next/head';
 import Ad from '../../components/Ad';
+import { UserContext } from '../../components/context/userContext';
 
 interface Props{
     post:Post,
@@ -22,11 +21,14 @@ interface Props{
 }
 
 function Post({post,suggestedPosts}:Props) {
+    const { openLogin ,setOpenLogin , currentUser } = useContext(UserContext)
     const {register , handleSubmit , formState:{errors},} = useForm<IFormInput>()
     const [submitted,setSubmitted] = useState(false)
 
     const onSubmit:SubmitHandler<IFormInput> = (data) => {
-
+        if(!currentUser){
+            setOpenLogin(true)
+        }else{   
          fetch('/api/createComment',{
             method:'POST',
             body:JSON.stringify(data),
@@ -36,6 +38,7 @@ function Post({post,suggestedPosts}:Props) {
             console.log(err)
             setSubmitted(false)
         })
+    }
     }
 
   return (
@@ -90,6 +93,17 @@ function Post({post,suggestedPosts}:Props) {
               }
               />
           </div>
+          <hr className="max-w-lg border border-yellow-500 my-6" />
+          <div className="flex">
+              <div className="flex">
+                  <BiUpvote className="w-6 h-6" />
+                  <p className="text-sm">(0)</p>
+              </div>
+              <div className="flex">
+                  <BiDownvote className="w-6 h-6" />
+                  <p className="text-sm">(0)</p>
+              </div>
+          </div>
       </article>
       {/*  */}
       
@@ -114,6 +128,7 @@ function Post({post,suggestedPosts}:Props) {
       </div>
       </div>
       <hr className='max-w-lg my-5 mx-auto border border-yellow-500' />
+      
       {submitted ?  (
         <div className='flex flex-col p-10 my-10 bg-yellow-500 text-white max-w-2xl mx-auto'>
             <h3 className='text-3xl font-bold' >Thank you for Submitting you comment ! </h3>
@@ -126,22 +141,12 @@ function Post({post,suggestedPosts}:Props) {
           <h4 className='text-3xl font-bold'>Leave a comment below!</h4>
           <hr className='py-3 mt-2' />
           <input {...register("_id")} type={"hidden"} name="_id" value={post._id} />
-          <label className='block mb-5'>
-              <span className='text-gray-700'>Name</span>
-          <input {...register("name",{required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='John Doe' type="text" />
-          </label>
-          <label className='block mb-5'>
-              <span className='text-gray-700'>Email</span>
-          <input {...register("email",{required:true})} className='shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='example@test.com' type="email" />
-          </label>
          
           <label className='block mb-5'>
               <span className='text-gray-700'>Comment</span>
           <textarea {...register("comment",{required:true})} className='shadow border rounded py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring' placeholder='Nice Post!' rows={8} />
           </label>
           <div className='flex flex-col p-5'>
-              {errors.name && <span className='text-red-500'>- The Name Field is required</span>}
-              {errors.email && <span className='text-red-500'>- The Email Field is required</span>}
               {errors.comment && <span className='text-red-500'>- The Comment Field is required</span>}
           </div>
           <input className='shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer' type="submit" />

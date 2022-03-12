@@ -1,6 +1,7 @@
 import React from 'react'
 import {motion ,AnimatePresence} from 'framer-motion'
 import Link from 'next/link'
+import { useSession, signIn, signOut } from 'next-auth/client';
 
 const sideVariants = {
     closed: {
@@ -23,7 +24,7 @@ const itemVariants = {
     open: { opacity: 1 }
   };
 
-function Modal({showModal,setShowModal}:any)  {
+function Modal({showModal,setShowModal,currentUser}:any)  {
 
   return (
     <AnimatePresence>
@@ -55,6 +56,10 @@ function Modal({showModal,setShowModal}:any)  {
               variants={sideVariants}
               
             >
+              {currentUser &&
+              <motion.p whileHover={{ scale: 1.1 }}
+                  variants={itemVariants} className="text-lg font-semibold hover:underline" >Welcome, {currentUser.name} </motion.p>
+                }
           <Link href="/">
               <motion.p whileHover={{ scale: 1.1 }}
                   variants={itemVariants} className="text-2xl font-semibold hover:underline" >Home</motion.p>
@@ -65,6 +70,9 @@ function Modal({showModal,setShowModal}:any)  {
          <Link href="/about">  
          <motion.p variants={itemVariants} className="text-2xl font-semibold hover:underline">About</motion.p>
          </Link>
+              {currentUser &&
+         <motion.p onClick={() => signOut()} variants={itemVariants} className="text-2xl font-semibold hover:underline">Logout</motion.p>
+        }
                 
           </motion.div>
         </motion.div>

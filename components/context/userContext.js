@@ -2,18 +2,12 @@ import { createContext, useState, useEffect } from 'react'
 
 
 export const UserContext = createContext()
-
+import { useSession, signIn, signOut } from 'next-auth/client';
 export const UserProvider = ({ children }) => {
-  const [pickup, setPickup] = useState('')
-  const [dropoff, setDropoff] = useState('')
-  const [pickupCoordinates, setPickupCoordinates] = useState()
-  const [dropoffCoordinates, setDropoffCoordinates] = useState()
   const [currentAccount, setCurrentAccount] = useState()
-  const [currentUser, setCurrentUser] = useState([])
-  const [selectedRide, setSelectedRide] = useState([])
-  const [price, setPrice] = useState()
-  const [basePrice, setBasePrice] = useState()
-
+  const [currentUser, setCurrentUser] = useState()
+  const [openLogin,setOpenLogin] = useState(false)
+  const [session, loading] = useSession();
   let metamask
 
   if (typeof window !== 'undefined') {
@@ -23,6 +17,12 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     checkIfWalletIsConnected()
   }, [])
+
+  useEffect(() => {
+    if(session){
+      setCurrentUser(session.user)
+    }
+  },[session])
 
   useEffect(() => {
     if (!currentAccount) return
@@ -63,51 +63,6 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  const createLocationCoordinatePromise = (locationName, locationType) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch('api/map/getLocationCoordinates', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            location: locationName,
-          }),
-        })
-
-        const data = await response.json()
-
-        if (data.message === 'success') {
-          switch (locationType) {
-            case 'pickup':
-              setPickupCoordinates(data.data)
-              break
-            case 'dropoff':
-              setDropoffCoordinates(data.data)
-              break
-          }
-          resolve()
-        } else {
-          reject()
-        }
-      } catch (error) {
-        console.error(error)
-        reject()
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (pickup && dropoff) {
-      ;(async () => {
-        await Promise.all([
-          createLocationCoordinatePromise(pickup, 'pickup'),
-          createLocationCoordinatePromise(dropoff, 'dropoff'),
-        ])
-      })()
-    } else return
-  }, [pickup, dropoff])
 
   const requestToCreateUserOnSanity = async address => {
     if (!window.ethereum) return
@@ -143,22 +98,12 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        pickup,
-        setPickup,
-        dropoff,
-        setDropoff,
-        pickupCoordinates,
-        setPickupCoordinates,
-        dropoffCoordinates,
-        setDropoffCoordinates,
+       
         connectWallet,
         currentAccount,
         currentUser,
-        selectedRide,
-        setSelectedRide,
-        price,
-        setPrice,
-        basePrice,
+        openLogin,
+        setOpenLogin,
         metamask,
       }}
     >
