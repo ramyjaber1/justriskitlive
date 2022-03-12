@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import {sanityClient, urlFor} from '../../sanity'
 import { Post } from '../../typings';
 import {useForm,SubmitHandler} from 'react-hook-form'
-import {BiUpvote,BiDownvote} from 'react-icons/Bi'
+// import {BiUpvote,BiDownvote} from 'react-icons/bi'
 interface IFormInput {
     _id:string;
     comment:string;
@@ -93,7 +93,7 @@ function Post({post,suggestedPosts}:Props) {
               }
               />
           </div>
-          <hr className="max-w-lg border border-yellow-500 my-6" />
+          {/* <hr className="max-w-lg border border-yellow-500 my-6" />
           <div className="flex">
               <div className="flex">
                   <BiUpvote className="w-6 h-6" />
@@ -103,7 +103,7 @@ function Post({post,suggestedPosts}:Props) {
                   <BiDownvote className="w-6 h-6" />
                   <p className="text-sm">(0)</p>
               </div>
-          </div>
+          </div> */}
       </article>
       {/*  */}
       
