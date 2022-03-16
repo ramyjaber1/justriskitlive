@@ -134,14 +134,15 @@ export const getServerSideProps = async () => {
   const query = `*[_type   == "post"]{
     _id,
     title,
+    publishedAt,
     author -> {
       name,
       image
     },
     description,
     mainImage,
-    slug
-  }`;
+    slug,
+  }|order(publishedAt desc)`;
   const getCoins = await axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cbinancecoin%2Ccardano%2Cdogecoin%2Csolana%2Cripple%2Ccrypto-com-chain%2Cbinance-peg-avalanche%2C&order=market_cap_desc&per_page=100&page=1&sparkline=false')
   const coins = getCoins.data
   const posts = await sanityClient.fetch(query)

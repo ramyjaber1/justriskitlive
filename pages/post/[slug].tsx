@@ -55,10 +55,11 @@ function Post({post,suggestedPosts}:Props) {
       <article className='max-w-3xl mx-auto p-5'>
           <h1 className='text-3xl mt-10 mb-3 '>{post.title}</h1>
           <h2 className='text-xl font-light text-gray-500 mb-2  '>{post.description}</h2>
-          <div className='flex items-center mt-2 space-x-2'>
-              <Link href={`/author/${post.author.slug.current}`}><img className='w-16 h-16 object-cover   rounded-full' src={urlFor(post.author.image).url()!} /></Link>
+          <div className='flex items-center my-5 space-x-2'>
+              <Link href={`/author/${post.author.slug.current}`}><img className='w-14 h-14 md:w-16 md:h-16 object-cover   rounded-full' src={urlFor(post.author.image).url()!} /></Link>
               <p className='font-extralight text-sm'>
-                  Blog post by <Link href={`/author/${post.author.slug.current}`}><span className='text-green-600 cursor-pointer'>{post.author.name}</span></Link> - Published at {new Date(post.publishedAt).toLocaleString()}
+                  Blog post by <Link href={`/author/${post.author.slug.current}`}><span className='text-green-600 cursor-pointer'>{post.author.name}</span></Link> 
+                  <p>- Published at {new Date(post.publishedAt).toLocaleString()}</p>
               </p>
           </div>
           <div className='mt-10'>
